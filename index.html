@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+         
+
+
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+         <title>gas</title>
+     </head>
+     <body>
+        
+        <div class="calc">
+            <label for="miles">distance:</label>
+            <input type="text" class="form-control" id="miles" placeholder="348">
+            <label for="gal">gallons in tank:</label>
+            <input type="text" class="form-control" id="gal" placeholder="10.942">
+            <label for="price">price per gallon:</label>
+            <input type="text" class="form-control" id="price" placeholder="$2.56">
+            <div class="button"> 
+                <button type="button" id="submit" class="btn btn-primary">calculate</button>
+            </div>
+            
+        </div>
+        <div class="results">
+            miles per gallon: <span id="mpg"></span>
+            <br>miles per dollar:<span id="mpd"></span>
+            <br>cost per mile:<span id="cpm"></span>
+            <div class="button"> 
+                <button type="button" id="clear" class="btn btn-danger">clear</button>
+            </div>
+        </div> 
+     </body>
+</html> 
+<script>
+    $(document).ready(function(){    
+    init()
+    $('#submit').click(function () {   
+        var $miles = $('#miles')
+        var $gal = $('#gal')
+        var $price = $('#price')
+        var $mpg = $('#mpg')
+        var $mpd = $('#mpd')
+        var $cpm = $('#cpm')
+
+        var mpg = $miles.val() / $gal.val()
+        var mpd = $miles.val() / ($price.val() * $gal.val())
+        var cpm = $price.val() / mpg
+
+        $mpg.append('<strong>' + Math.round(mpg * 100) / 100 + " </strong> miles")
+        $mpd.append('<strong>' + Math.round(mpd * 100) / 100 + ' </strong> miles per $1 spent')
+        $cpm.append('<strong>' + Math.round(cpm * 100) / 100 + '</strong>')
+
+        $miles.val('')
+        $gal.val('')
+        $price.val('')
+    })
+    $('#clear').click(function (){
+        $('#mpg').text('')
+        $('#mpd').text('')
+        $('#cpm').text('')
+    })
+});
+</script>    
