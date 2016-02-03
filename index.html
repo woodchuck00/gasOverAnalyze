@@ -4,10 +4,11 @@
          <meta charset="UTF-8">
          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
          
-
+         <link rel="stylesheet" type="text/css" href="theme.css">
 
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+         <script src="Chart.js"></script>
+         <script src="myscripts.js"></script>
          <title>gas</title>
      </head>
      <body>
@@ -32,35 +33,8 @@
                 <button type="button" id="clear" class="btn btn-danger">clear</button>
             </div>
         </div> 
+        <div class="chart">
+            <canvas id="canvas"></canvas>
+        </div>
      </body>
-</html> 
-<script>
-    $(document).ready(function(){    
-    init()
-    $('#submit').click(function () {   
-        var $miles = $('#miles')
-        var $gal = $('#gal')
-        var $price = $('#price')
-        var $mpg = $('#mpg')
-        var $mpd = $('#mpd')
-        var $cpm = $('#cpm')
-
-        var mpg = $miles.val() / $gal.val()
-        var mpd = $miles.val() / ($price.val() * $gal.val())
-        var cpm = $price.val() / mpg
-
-        $mpg.append('<strong>' + Math.round(mpg * 100) / 100 + " </strong> miles")
-        $mpd.append('<strong>' + Math.round(mpd * 100) / 100 + ' </strong> miles per $1 spent')
-        $cpm.append('<strong>' + Math.round(cpm * 100) / 100 + '</strong>')
-
-        $miles.val('')
-        $gal.val('')
-        $price.val('')
-    })
-    $('#clear').click(function (){
-        $('#mpg').text('')
-        $('#mpd').text('')
-        $('#cpm').text('')
-    })
-});
-</script>    
+</html>     

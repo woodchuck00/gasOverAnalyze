@@ -1,0 +1,22 @@
+.calc{
+    margin:10px;
+    padding: 20px;
+    height:250px;
+    background-color: #00FF33;
+}
+.results{
+    margin-left: 50px;
+    padding:10px;
+    height: 120px;
+    background-color: #00FFFF;
+}
+.chart{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding:10px;
+    height:100%;
+    background-color: #FFDAB9;
+}
+.button{
+    padding:5px;
+}
