@@ -64,21 +64,20 @@ function Push () {
     }
 }
 function getFill () {
-    return fill = [
-        {
-            "date" : "1/1/16",
-            "mpg"  : "20",
-            "mpd"  : "2",
-            "cpm"  : ".5"
-        },  
-        {
-            "date" : "1/6/16",
-            "mpg"  : "22",
-            "mpd"  : "3",
-            "cpm"  : ".3"
-        } 
-        ] 
-}
+    var fill = [] 
+    var items = [];
+    var json = $.ajax({
+                      url: 'data.json',
+                      dataType: 'json',
+                      async: false,
+                      success: function(data) {
+                        $.each( data.fills, function(key, val) {
+                            items.push(val)
+                        })
+                      }
+                    })
+      return items
+ }
 function getLineData () {
     return lineChartData = {
         labels : [],     
@@ -109,4 +108,10 @@ function getLineData () {
 function init () {
     Push()
     render()
+}
+function test() {
+$.ajax({url: "data.json"}).done(function(data){
+   return $.parseJSON(data);
+});
+
 }
