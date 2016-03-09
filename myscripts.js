@@ -19,12 +19,27 @@ $(document).ready(function(){
 
         var obj = {
             "date" : getDate(),
-            "mpg"  : mpg,
-            "mpd"  : mpd,
-            "cpm"  : cpm
+            "mpg"  : mpg.toString(),
+            "mpd"  : mpd.toString(),
+            "cpm"  : cpm.toString()
         };
 
-        fill.push(obj)
+        //fill.push(obj)
+        $.post('data.json', obj, function(data){
+            console.log(obj)
+            console.log(data['fills'])
+            JSON.stringify(data['fills'].push("lobster"))
+        },'json')
+
+        var txtFile = "test.txt";
+var file = new File([''], txtFile);
+var str = "My string of text";
+
+file.open("w"); // open file with write access
+file.writeln("First line of text");
+file.writeln("Second line of text " + str);
+file.write(str);
+file.close();
 
         lineChartData.labels.push(obj["date"])
         lineChartData.datasets[0].data.push(obj["mpg"])
@@ -54,8 +69,7 @@ function render () {
         responsive: true
     })
 }
-function Push () {
-    var fill = getFill()
+function Push (fill) {
     var lineChartData = getLineData()
     for (x in fill) {
         lineChartData.labels.push(fill[x]["date"])
@@ -63,21 +77,6 @@ function Push () {
         lineChartData.datasets[1].data.push(fill[x]["mpd"])
     }
 }
-function getFill () {
-    var fill = [] 
-    var items = [];
-    var json = $.ajax({
-                      url: 'data.json',
-                      dataType: 'json',
-                      async: false,
-                      success: function(data) {
-                        $.each( data.fills, function(key, val) {
-                            items.push(val)
-                        })
-                      }
-                    })
-      return items
- }
 function getLineData () {
     return lineChartData = {
         labels : [],     
@@ -106,12 +105,22 @@ function getLineData () {
     }  
 }
 function init () {
-    Push()
-    render()
-}
-function test() {
-$.ajax({url: "data.json"}).done(function(data){
-   return $.parseJSON(data);
-});
+    var items = []
+    var json = $.getJSON('data.json', function(data) {
+                        $.each( data.fills, function(key, val) {
+                            items.push(val)
+                        })
+                        Push(items)
+                        render()
+                    })
+    var testObject = { 'one': 1, 'two': 2, 'three': 3 };
+
+// Put the object into storage
+localStorage.setItem('testObject', JSON.stringify(testObject));
+
+// Retrieve the object from storage
+var retrievedObject = localStorage.getItem('testObject');
+
+console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
 }
