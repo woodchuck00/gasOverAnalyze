@@ -19,16 +19,14 @@ $(document).ready(function(){
 
         var obj = {
             "date" : getDate(),
-            "mpg"  : mpg,
-            "mpd"  : mpd,
-            "cpm"  : cpm
+            "mpg"  : mpg.toString(),
+            "mpd"  : mpd.toString(),
+            "cpm"  : cpm.toString()
         };
-
-        fill.push(obj)
-
-        lineChartData.labels.push(obj["date"])
-        lineChartData.datasets[0].data.push(obj["mpg"])
-        lineChartData.datasets[1].data.push(obj["mpd"])
+        pushToFill(obj)
+        
+        getFill()
+        
         render()
 
         $miles.val('')
@@ -49,12 +47,14 @@ function getDate() {
     return (month + 1) + '/' + day + '/' + (1900 + year)
 }
 function render () {
+
     var ctx = document.getElementById("canvas").getContext("2d")
     var myLine = new Chart(ctx).Line(lineChartData, {
         responsive: true
     })
 }
 function Push () {
+    console.log("Push() ran")
     var fill = getFill()
     var lineChartData = getLineData()
     for (x in fill) {
@@ -64,7 +64,10 @@ function Push () {
     }
 }
 function getFill () {
-    return fill = [
+    console.log("getFill() ran")
+    
+    if(!localStorage.getItem('fill')){
+        fill = [
         {
             "date" : "1/1/16",
             "mpg"  : "20",
@@ -77,7 +80,23 @@ function getFill () {
             "mpd"  : "3",
             "cpm"  : ".3"
         } 
-        ] 
+    ] 
+       localStorage.setItem('fill', JSON.stringify(fill))
+       return fill 
+    }else{
+        store = localStorage.getItem('fill')
+        return JSON.parse(store)
+    }   
+}
+function pushToFill(obj){
+    fill.push(obj)
+    
+        localStorage.setItem('fill', JSON.stringify(fill))
+        console.log(fill)
+        console.log('fill added')
+        lineChartData.labels.push(obj["date"])
+        lineChartData.datasets[0].data.push(obj["mpg"])
+        lineChartData.datasets[1].data.push(obj["mpd"])
 }
 function getLineData () {
     return lineChartData = {
