@@ -52,7 +52,7 @@ function render () {
 
     var ctx = document.getElementById("canvas").getContext("2d")
     var myLine = new Chart(ctx).Line(lineChartData, {
-        responsive: true
+        responsive: false
     })
 }
 function Push () {
