@@ -32,6 +32,8 @@ $(document).ready(function(){
         $miles.val('')
         $gal.val('')
         $price.val('')
+
+        location.reload();
     })
     $('#clear').click(function (){
         $('#mpg').text('')
@@ -89,6 +91,7 @@ function getFill () {
     }   
 }
 function pushToFill(obj){
+    fill = JSON.parse(localStorage.getItem('fill'))
     fill.push(obj)
     
         localStorage.setItem('fill', JSON.stringify(fill))
