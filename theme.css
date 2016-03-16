@@ -15,9 +15,20 @@
     margin-right: 50px;
     padding:10px;
     height:500px;
+    width: 50%;
     background-color: #FFDAB9;
+    float: left;
+    z-index: 0;
 }
-
+.legend{
+    display: inline-block;
+    background: springgreen;
+    color: white;
+    margin-right: 5px;
+    padding: 20px;
+    float: left;
+    z-index: 1;
+}
 .button{
     padding:5px;
 }
