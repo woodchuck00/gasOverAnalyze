@@ -1,38 +1,32 @@
-$(document).ready(function() {    
-    //cache for displaying last value
-    var temp = JSON.parse(localStorage.getItem('fill')) || null
-
-    var $miles = $('#miles')
-    var $gal = $('#gal')
-    var $price = $('#price')
-    var $mpg = $('#mpg')
-    var $mpd = $('#mpd')
-    var $cpm = $('#cpm')
-    //if there is no storage don't display values
-    if (temp) {
-        $mpg.append('<strong>' + Math.round(temp[(temp.length-1)]["mpg"] * 100) / 100 + " </strong> miles")
-        $mpd.append('<strong>' + Math.round(temp[(temp.length-1)]["mpd"] * 100) / 100 + ' </strong> miles per $1 spent')
-        $cpm.append('<strong>' + Math.round(temp[(temp.length-1)]["cpm"] * 100) / 100 + '</strong>')
-    }
-    //gets data from local storage and renders chart
-    init()
+$(document).ready(function(){    
+    //init()
     $('#submit').click(function () {   
-        //math for stats
+        var $miles = $('#miles')
+        var $gal = $('#gal')
+        var $price = $('#price')
+        var $mpg = $('#mpg')
+        var $mpd = $('#mpd')
+        var $cpm = $('#cpm')
+
         var mpg = $miles.val() / $gal.val()
         var mpd = $miles.val() / ($price.val() * $gal.val())
         var cpm = $price.val() / mpg
-        //preparing stats to be added to local storage 
+
+
+        $mpg.append('<strong>' + Math.round(mpg * 100) / 100 + " </strong> miles")
+        $mpd.append('<strong>' + Math.round(mpd * 100) / 100 + ' </strong> miles per $1 spent')
+        $cpm.append('<strong>' + Math.round(cpm * 100) / 100 + '</strong>')
+
         var obj = {
             "date" : getDate(),
             "mpg"  : mpg.toString(),
             "mpd"  : mpd.toString(),
             "cpm"  : cpm.toString()
-        }
-        //add stats to local storage
+        };
         pushToFill(obj)
-        //get stats from local storage
+        
         getFill()
-        //create chart
+        
         render()
 
         $miles.val('')
@@ -41,12 +35,12 @@ $(document).ready(function() {
 
         location.reload();
     })
-    $('#clear').click(function () {
+    $('#clear').click(function (){
         $('#mpg').text('')
         $('#mpd').text('')
         $('#cpm').text('')
     })
-})
+});
 function getDate() {
     var now = new Date()
     var month = now.getMonth()
